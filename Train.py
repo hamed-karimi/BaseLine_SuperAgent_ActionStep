@@ -37,7 +37,7 @@ class Train:
         vec_env = make_vec_env(Environment, n_envs=self.params.ENVIRONMENT_NUM,
                                env_kwargs=dict(params=self.params,
                                                few_many_objects=['few', 'many']),
-                               vec_env_cls=SubprocVecEnv
+                               vec_env_cls=DummyVecEnv
                                )
         # vec_env = Environment(self.params, few_many_objects=['few', 'many'])
         # vec_env = ActionMasker(env=vec_env, action_mask_fn=valid_actions)
@@ -79,7 +79,7 @@ class Train:
 
         print('before learning')
         model.learn(self.episode_num,
-                    log_interval=100,
+                    log_interval=1,
                     # callback=[self.tensorboard_call_back, checkpoint_callback],
                     tb_log_name=self.res_name
                     )
