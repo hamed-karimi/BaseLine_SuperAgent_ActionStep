@@ -85,9 +85,10 @@ class Environment(gym.Env):
                                       self._agent_location[1]] * self._environment_object_reward
         self._update_object_locations()
 
-        self._update_mental_state_after_step(dt=dt)
-        mental_states_cost = self._total_positive_mental_states()
         positive_mental_states_before_reward = self._total_positive_mental_states()
+        mental_states_cost = self._total_positive_mental_states()
+        self._update_mental_state_after_step(dt=dt)
+
         self._update_mental_states_after_object(u=object_reward)
         positive_mental_states_after_reward = self._total_positive_mental_states()
         mental_states_reward = np.maximum(0,
@@ -103,7 +104,7 @@ class Environment(gym.Env):
         #     truncated = True
         # else:
         #     truncated = False
-        if (self._mental_states > self._death_threshold).any():
+        if (object_reward > 0).any():
             truncated = True
         # (observation, reward, terminated, truncated, info)
         return self._flatten_observation(), reward, terminated, truncated, dict()

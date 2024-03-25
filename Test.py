@@ -114,7 +114,9 @@ class Test:
                                             action_masks=action_mask)[0]
                 step = self._all_actions[action]
             scale = .2
-            ax[r, c].arrow(x=agent_location[1], y=agent_location[0], dx=step[1]*scale, dy=step[0]*scale, head_width=.2)
+            ax[r, c].arrow(x=agent_location[1], y=agent_location[0],
+                           dx=step[1]*scale, dy=step[0]*scale,
+                           head_width=.2, length_includes_head=True)
 
             if self.debug or agent_location[0] == self.height - 1 and agent_location[1] == self.width - 1:
                 ax[r, c].set_title(self.get_figure_title(env_parameters[0]), fontsize=10)
